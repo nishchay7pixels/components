@@ -282,6 +282,21 @@ export abstract class _MatPaginatorBase<
     this._emitPageEvent(previousPageIndex);
   }
 
+  /** Move to the specific page if not already there. */
+  gotoPage(gotoPageIndex): void {
+    // gotoPageIndex exeeds last page
+    if(gotoPageIndex>this.this.getNumberOfPages()-1) {
+      return;
+    }
+    // gotoPageIndex is Invalid since negative
+    if(gotoPageIndex<0) {
+      return;
+    }
+    const previousPageIndex = this.pageIndex;
+    this.pageIndex = gotoPageIndex;
+    this._emitPageEvent(previousPageIndex);
+  }
+  
   /** Whether there is a previous page. */
   hasPreviousPage(): boolean {
     return this.pageIndex >= 1 && this.pageSize != 0;
